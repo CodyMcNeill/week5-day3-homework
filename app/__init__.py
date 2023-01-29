@@ -9,13 +9,15 @@ app.config.from_object(Config)
 
 db.init_app(app)
 migrate = Migrate(app, db)
-login_manager = LoginManager(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+login_manager.login_view = "loginUsersPage"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.get(user_id)
 
-from . import models
 from app.main.routes import main
 from app.search.routes import search
 from app.users.routes import users

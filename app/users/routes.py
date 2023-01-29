@@ -32,6 +32,7 @@ def loginUserPage():
                 if user.password == password:
                     login_user(user)
                     print('SUCCESS')
+                    return render_template('index.html')
                 else:
                     print('Wrong password!')
         else:
